@@ -129,7 +129,20 @@
                 "en": "Shows the type of gateway.",
                 "de": "Zeigt den Stationstyp"
             }
-        }
+        },
+		{
+			"id": "ignorePiezo",
+			"type": "checkbox",
+			"label": {
+				"en": "Ignore Piezo",
+				"de": "Piezo ignorieren"
+			},
+			"value": false,
+			"hint": {
+				"en": "If enabled, the driver will ignore the Piezo rain sensor data and only use the standard rain sensor data.",
+				"de": "Wenn aktiviert, ignoriert der Treiber die Daten des Piezo-Regenmessers und verwendet nur die Daten des Standard-Regenmessers."
+			}
+		}
     ],
     "images": {
         "small": "/drivers/rain_sensor/assets/images/small.png",

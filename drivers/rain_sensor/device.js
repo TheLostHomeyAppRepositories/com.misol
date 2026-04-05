@@ -16,6 +16,12 @@ class RainSensorDevice extends Device
             this.setSettings({gatewayID: dd.id}).catch(this.error);
         }
 
+		const ignorePiezo = this.getSetting('ignorePiezo');
+		if (ignorePiezo === undefined)
+		{
+			this.setSettings({ ignorePiezo: false }).catch(this.error);
+		}
+
         if (!this.hasCapability('measure_hours_since_rained'))
         {
             await this.addCapability('measure_hours_since_rained');
@@ -152,6 +158,8 @@ class RainSensorDevice extends Device
                 this.setSettings({stationType: this.stationType}).catch(this.error);
             }
 
+			const ignorePiezo = this.getSetting('ignorePiezo');
+
 			let rainConversion = 25.4;
 			if (this.homey.app.RainfallUnits === '1')
 			{
@@ -167,21 +175,12 @@ class RainSensorDevice extends Device
 			let yearlyrainin = 0;
 			let totalrainin = null;
 
-			if (gateway.rainratein)
+			if (gateway.rainratein !== undefined)
 			{
 				rainratein = gateway.rainratein;
 			}
 
-			if (gateway.eventrainin)
-			{
-				eventrainin = gateway.eventrainin;
-				hourlyrainin = gateway.hourlyrainin;
-				dailyrainin = gateway.dailyrainin;
-				weeklyrainin = gateway.weeklyrainin;
-				monthlyrainin = gateway.monthlyrainin;
-				yearlyrainin = gateway.yearlyrainin;
-			}
-			else if (gateway.rrain_piezo)
+			if (gateway.rrain_piezo !== undefined && !ignorePiezo)
 			{
 				rainratein = gateway.rrain_piezo;
 				eventrainin = gateway.erain_piezo;
@@ -201,8 +200,17 @@ class RainSensorDevice extends Device
 					this.setCapabilityValue('alarm_rain', gateway.srain_piezo === '1').catch(this.error);
 				}
 			}
+			else if (gateway.eventrainin !== undefined)
+			{
+				eventrainin = gateway.eventrainin;
+				hourlyrainin = gateway.hourlyrainin;
+				dailyrainin = gateway.dailyrainin;
+				weeklyrainin = gateway.weeklyrainin;
+				monthlyrainin = gateway.monthlyrainin;
+				yearlyrainin = gateway.yearlyrainin;
+			}
 
-			if (gateway.totalrainin)
+			if (gateway.totalrainin !== undefined)
 			{
 				totalrainin = gateway.totalrainin;
 			}

@@ -22,6 +22,12 @@ class WeatherStationDevice extends Device
         }
         this.stationType = this.getSetting('stationType');
 
+		const ignorePiezo = this.getSetting('ignorePiezo');
+		if (ignorePiezo === undefined)
+		{
+			this.setSettings({ignorePiezo: false}).catch(this.error);
+		}
+
         // if (!this.hasCapability('measure_hours_since_rained'))
         // {
         //     this.addCapability('measure_hours_since_rained');
@@ -203,6 +209,8 @@ class WeatherStationDevice extends Device
                 this.setSettings({stationType: this.stationType}).catch(this.error);
             }
 
+			const ignorePiezo = this.getSetting('ignorePiezo');
+
             var temperatureF = null
 
 			if (gateway.humidity !== undefined)
@@ -294,7 +302,7 @@ class WeatherStationDevice extends Device
             let yearlyrainin = 0;
             let totalrainin = null;
 
-			if (gateway.rrain_piezo !== undefined)
+			if (gateway.rrain_piezo !== undefined && !ignorePiezo)
             {
                 rainratein = gateway.rrain_piezo;
                 eventrainin = gateway.erain_piezo;
@@ -346,7 +354,7 @@ class WeatherStationDevice extends Device
 				}
 			}
 
-			if (gateway.totalrainin)
+			if (gateway.totalrainin !== undefined)
 			{
 				totalrainin = gateway.totalrainin;
 			}

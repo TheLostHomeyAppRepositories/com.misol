@@ -24,7 +24,7 @@ class WeatherStationDriver extends Driver
             if ((gateway.winddir !== undefined) && (gateway.wh80batt === undefined))
             {
                 const meter = { name: "Weather Station", data: { id: gateway.PASSKEY, PASSKEY: gateway.PASSKEY, meterNumber: 0 } };
-				if (gateway.rrain_piezo)
+				if (gateway.rrain_piezo !== undefined)
 				{
 					meter.icon = '/ws90s.svg';
 				}

@@ -150,7 +150,7 @@
 		"en": "Fix issue when changing units for a capability that had no options set."
 	},
 	"0.1.50": {
-		"en": "Added support for the CO2 meater of the WS3910A."
+		"en": "Added support for the CO2 meter of the WS3910A."
 	},
 	"0.1.51": {
 		"en": "Fixed missing decimals on rainfall data."
@@ -226,5 +226,8 @@
 	},
 	"0.2.20": {
 		"en": "Fix battery status for wn20 Rain sensor."
+	},
+	"0.2.21": {
+		"en": "Added a device setting to the weather station to ignore the piezo sensor values. Added a repair option to the WittFlow device to update the IP address."
 	}
 }

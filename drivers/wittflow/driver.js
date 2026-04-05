@@ -35,4 +35,37 @@ module.exports = class MyDriver extends Homey.Driver
 		}));
 	}
 
+	async onRepair(session, device)
+	{
+		// Argument session is a PairSocket, similar to Driver.onPair
+		// Argument device is a Homey.Device that's being repaired
+		session.setHandler('showView', async (viewId) =>
+		{
+			if (viewId === 'loading')
+			{
+				const devices = await this.homey.app.getIOTDeviceList();
+				let deviceID = device.getData().id;
+
+				// Find the device in the list of devices
+				const foundDevice = devices
+					.flatMap(deviceGroup => deviceGroup.command || [])
+					.find(device => device.id === deviceID);
+
+				if (foundDevice)
+				{
+					// If the device is found, update its settings with the new gateway IP
+					await device.setSettings({ address: foundDevice.gatewayIP });
+				}
+				else
+				{
+					// If the device is not found, throw an error to indicate repair failure
+					throw new Error(`Device with ID ${deviceID} not found during repair.`);
+				}
+
+				// 3. This MUST be called to trigger the "Success" state and auto-close
+				await session.done();
+			}
+		});
+	}
+
 };

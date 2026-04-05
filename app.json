@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.misol",
-  "version": "0.2.20",
+  "version": "0.2.21",
   "compatibility": ">=12.2.0",
   "sdk": 3,
   "platforms": [
@@ -4642,6 +4642,19 @@
             "en": "Shows the type of gateway.",
             "de": "Zeigt den Stationstyp"
           }
+        },
+        {
+          "id": "ignorePiezo",
+          "type": "checkbox",
+          "label": {
+            "en": "Ignore Piezo",
+            "de": "Piezo ignorieren"
+          },
+          "value": false,
+          "hint": {
+            "en": "If enabled, the driver will ignore the Piezo rain sensor data and only use the standard rain sensor data.",
+            "de": "Wenn aktiviert, ignoriert der Treiber die Daten des Piezo-Regenmessers und verwendet nur die Daten des Standard-Regenmessers."
+          }
         }
       ],
       "images": {
@@ -4956,6 +4969,32 @@
               }
             }
           ]
+        },
+        {
+          "id": "stationType",
+          "type": "label",
+          "label": {
+            "en": "Station Type",
+            "de": "Stationstyp"
+          },
+          "value": "",
+          "hint": {
+            "en": "Shows the type of gateway.",
+            "de": "Zeigt den Stationstyp"
+          }
+        },
+        {
+          "id": "ignorePiezo",
+          "type": "checkbox",
+          "label": {
+            "en": "Ignore Piezo",
+            "de": "Piezo ignorieren"
+          },
+          "value": false,
+          "hint": {
+            "en": "If enabled, the driver will ignore the Piezo rain sensor data and only use the standard rain sensor data.",
+            "de": "Wenn aktiviert, ignoriert der Treiber die Daten des Piezo-Regenmessers und verwendet nur die Daten des Standard-Regenmessers."
+          }
         }
       ],
       "images": {
@@ -5127,6 +5166,12 @@
         {
           "id": "add_my_devices",
           "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "loading",
+          "template": "loading"
         }
       ],
       "settings": [

@@ -55,6 +55,12 @@
 			"template": "add_devices"
 		}
 	],
+	"repair": [
+		{
+			"id": "loading",
+			"template": "loading"
+		}
+	],
 	"settings": [
 		{
 			"id": "address",
