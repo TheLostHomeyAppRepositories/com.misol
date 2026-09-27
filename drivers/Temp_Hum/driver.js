@@ -30,7 +30,7 @@ class TempHumDriver extends Driver
             }
 
 
-            // Look for extra chanels
+            // Look for extra channels
             for (var i = 1; i <= 8; i++)
             {
                 const tempXMeter = "temp" + i + "f";

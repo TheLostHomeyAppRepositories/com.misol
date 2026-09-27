@@ -21,7 +21,7 @@ class TempDriver extends Driver
         var devices = [];
         for (const gateway of this.homey.app.detectedGateways)
         {
-            // Look for extra chanels
+            // Look for extra channels
             for (var i = 1; i <= 8; i++)
             {
                 const tempXMeter = "temp" + i + "f";

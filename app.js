@@ -345,7 +345,7 @@ class MyApp extends Homey.App
 			return value === args.value;
 		});
 
-		// Lightening conditions
+		// Lightningconditions
 		this.measure_lightning_is_lessCondition = this.homey.flow.getConditionCard('measure_lightning_is_less');
 		this.measure_lightning_is_lessCondition.registerRunListener(async (args, state) =>
 		{

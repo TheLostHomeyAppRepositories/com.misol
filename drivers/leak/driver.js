@@ -21,7 +21,7 @@ class LeakDriver extends Driver
         var devices = [];
         for (const gateway of this.homey.app.detectedGateways)
         {
-            // Look for extra chanels
+            // Look for extra channels
             for (var i = 1; i <= 4; i++)
             {
                 const LeakXMeter = "leak_ch" + i;
