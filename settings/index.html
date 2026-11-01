@@ -32,7 +32,7 @@
 			</div>
             <div class="field row">
                 <label class="homey-form-label" for="port"><span data-i18n="settings.port"></span></label>
-                <input class="homey-form-input" id="port" type="text" value="" />
+                <input class="homey-form-input" id="port" type="number" min="1024" max="65535" step="1" value="" />
             </div>
             <h2 data-i18n="settings.connection"></h2>
             <div class="field row">
@@ -219,6 +219,11 @@
 
             saveElement.addEventListener('click', function(e)
             {
+                var port = Number(portElement.value);
+                if (!Number.isInteger(port) || port < 1024 || port > 65535)
+                {
+                    return Homey.alert(Homey.__('settings.invalidPort'));
+                }
                 Homey.set('port', portElement.value, function(err)
                 {
                     if (err) return Homey.alert(err);

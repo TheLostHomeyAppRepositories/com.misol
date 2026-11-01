@@ -2,6 +2,7 @@
     "settings": {
         "settings": "Instellingen",
         "port": "Poort",
+        "invalidPort": "Voer een geheel poortnummer van 1024 tot 65535 in (standaard: 7777). Poorten onder 1024 vereisen rechten die de Homey-app niet heeft.",
         "connection": "Selecteer de poort die overeenkomt met de instelling die je hebt gemaakt in de WS View app",
         "detected": "Gedetecteerd",
         "diagnosticsLog": "Diagnostisch logboek",

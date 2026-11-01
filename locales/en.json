@@ -2,6 +2,7 @@
     "settings": {
         "settings": "Settings",
         "port": "Port",
+        "invalidPort": "Enter a whole-number port from 1024 to 65535 (default: 7777). Ports below 1024 require permissions that the Homey app does not have.",
         "connection": "The Port must match the setting in the WS View app",
         "detected": "Detected",
         "diagnosticsLog": "Diagnostics Log",

@@ -73,18 +73,11 @@ class MyApp extends Homey.App
 			this.updateLog(`Error getting homey IP: ${err.message}`, 0);
 		}
 
-		this.pushServerPort = Number(this.homey.settings.get('port'));
-		if (isNaN(this.pushServerPort))
+		const savedPort = this.homey.settings.get('port');
+		this.pushServerPort = this.validatePushServerPort(savedPort);
+		if (Number(savedPort) !== this.pushServerPort)
 		{
-			this.pushServerPort = 7777;
 			this.homey.settings.set('port', this.pushServerPort);
-		}
-		else
-		{
-			if ((this.pushServerPort <= 0) || (this.pushServerPort >= 65536))
-			{
-				this.pushServerPort = 7777;
-			}
 		}
 
 		this.SpeedUnits = this.homey.settings.get('SpeedUnits');
@@ -121,11 +114,12 @@ class MyApp extends Homey.App
 
 			if (key === 'port')
 			{
-				this.pushServerPort = this.homey.settings.get('port');
-				this.pushServerPort = Number(this.pushServerPort);
-				if (!Number.isInteger(this.pushServerPort) || (this.pushServerPort <= 0) || (this.pushServerPort >= 65536))
+				const savedPort = this.homey.settings.get('port');
+				this.pushServerPort = this.validatePushServerPort(savedPort);
+				if (Number(savedPort) !== this.pushServerPort)
 				{
-					this.pushServerPort = 7777;
+					this.homey.settings.set('port', this.pushServerPort);
+					return;
 				}
 				this.updateLog("Closing server");
 				this.server.close();
@@ -864,12 +858,7 @@ class MyApp extends Homey.App
 
 		this.server = http.createServer(requestListener);
 
-		// Make sure the port is a number and is valid
-		this.pushServerPort = Number(this.pushServerPort);
-		if (!Number.isInteger(this.pushServerPort) || (this.pushServerPort <= 0) || (this.pushServerPort >= 65536))
-		{
-			this.pushServerPort = 7777;
-		}
+		this.pushServerPort = this.validatePushServerPort(this.pushServerPort);
 
 		this.server.listen(this.pushServerPort, () =>
 		{
@@ -893,6 +882,17 @@ class MyApp extends Homey.App
 			}
 		});
 
+	}
+
+	validatePushServerPort(value)
+	{
+		const port = Number(value);
+		if (!Number.isInteger(port) || (port < 1024) || (port > 65535))
+		{
+			this.updateLog(`Invalid push server port: ${value}. Use an integer from 1024 to 65535; ports below 1024 require elevated permissions. Using port 7777 instead. Ensure the gateway's Custom Server port matches.`, 0);
+			return 7777;
+		}
+		return port;
 	}
 
 	varToString(source)

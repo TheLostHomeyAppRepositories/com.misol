@@ -271,5 +271,8 @@
 	},
 	"0.2.35": {
 		"en": "Added logging of each push event to verify correct handling. Added an option to configure a gateway during pairing if no data has been received."
+	},
+	"0.2.36": {
+		"en": "Validate and restrict port input to range 1024-65535."
 	}
 }
